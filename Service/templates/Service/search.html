@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Service</li>
+		</ol>
+  </div>
+  
+{% endblock banner %}
+
+{% block content %}
+<!--Search-->
+<div>
+  <form action="{% url 'Service:search' %}" method="GET" >
+    <input class="form-control search-field" placeholder="Enter your search term..." type="text" id="search" name="q" value="{{request.GET.q}}">
+    <input class="" type="submit" name="submit" value="search">
+    
+  </form>
+</div>
+<!-- //page details -->
+<!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2 data-aos="fade-in">Services</h2>
+          <p data-aos="fade-in">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+         {% for i in List_Service %}
+         
+            <!--------------------------------------------------------------------------->
+            <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-right">
+              <div class="card">
+                <div class="card-img">
+                  <img src="{{ i.Service_image.url }}" alt="image">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="">{{ i.title }}</a></h5>
+                  <p class="card-text">{{ i.Service_description }}</p>
+                  <div class="read-more"><a href=""><i class="icofont-arrow-right"></i> Read More</a></div>
+                </div>
+              </div>
+            </div>
+            <!------------------------------------------------------------------------------->          
+          {% if forloop.counter|divisibleby:3 %}
+        </div>
+        <div class="row">
+          {% endif %}
+          {% endfor %}
+
+        </div>
+      </div>
+    </section><!-- End Services Section -->
+    
+
+{% endblock content %}

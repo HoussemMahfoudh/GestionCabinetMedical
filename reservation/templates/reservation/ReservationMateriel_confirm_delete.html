@@ -1,0 +1,30 @@
+
+{% extends 'base.html' %}
+
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Reservé Materiel </li>
+		</ol>
+	</div>
+	<!-- //page details -->
+{% endblock banner %}
+{% block content %}
+<div class="main"> 
+    <form action="{% url 'reservation:reservation-delete' object.pk %}" method="POST"> 
+		{% csrf_token %} 
+		<p>Are you sure you want to delete reservation number "{{ object.pk }}"?</p>
+        <input type="submit" value="Confirm" /> 
+    </form> 
+</div> 
+{% endblock content %}

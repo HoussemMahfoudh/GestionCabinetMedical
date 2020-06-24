@@ -1,0 +1,37 @@
+<section class="section section-blogs">
+	<div class="container-fluid">
+				
+		<!-- Section Header -->
+		<div class="section-header text-center">
+			<h2>Articles and News</h2>
+			<p class="sub-title">Derniers Articles et Astuce Médical de Beauté</p>
+		</div>
+		<!-- /Section Header -->
+        <div class="row blog-grid-row">
+        {% for article in articles_instances %}
+            <div class="col-md-6 col-lg-3 col-sm-12">
+                                
+                <!-- Blog Post -->
+                    <div class="blog grid-blog">
+                        <div class="blog-image">
+                            <a href="{{article.get_absolute_url}}"><img class="img-fluid" src="{{article.image.url}}" alt="Post Image"></a>
+                        </div>
+                        <div class="blog-content">
+                            <ul class="entry-meta meta-item">
+                                <li><i class="far fa-clock"></i>{{article.date.date}}</li>
+                            </ul>
+                            <h3 class="blog-title"><a href="{{article.get_absolute_url}}">{{article.title|title}}</a></h3>
+                            <p class="mb-0">{{ article.content | truncatewords:10 | striptags | safe }}</p>
+                        </div>
+                    </div>
+                <!-- /Blog Post -->
+                                    
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="view-all text-center"> 
+			<a href="{% url 'Article:liste-article'%}" class="btn btn-primary">Voir Tout Les Articles</a>
+		</div>
+    </div>
+</section>

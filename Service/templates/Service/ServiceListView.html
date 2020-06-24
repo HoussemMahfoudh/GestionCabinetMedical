@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Service</li>
+    </ol>
+    <!--Search-->
+  <div>
+    <form action="{% url 'Service:search' %}" method="GET" >
+      <div style="text-align: right;">
+      <input class="" placeholder="Enter your search term..." type="text" id="search" name="q" value="{{request.GET.q}}">
+      <input class="" type="submit" name="submit" value="search">
+    </div>
+      
+    </form>
+  </div>
+  </div>
+  
+	<!-- //page details -->
+{% endblock banner %}
+
+{% block content %}
+<!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2 data-aos="fade-in">Traitements médicaux à visée esthétique</h2>
+          <p data-aos="fade-in">La Médecine Esthétique permet sans chirurgie d'obtenir un rajeunissement de la peau. </p>
+          <p data-aos="fade-in">Avec l'âge et les perturbations hormonales, l'épiderme est atrophié, le derme s'appauvrit en fibres élastiques.
+          <strong>La peau devient plus fine, plus fragile, plus sèche, et perd de son élasticité. Ceci explique l'apparition des rides, la perte de luminosité du teint et le relâchement cutané.</strong>
+          </p>
+          <p data-aos="fade-in">La médecine esthétique combine plusieurs soins visant à agir à la fois sur la texture et le grain de la peau, sur la luminosité du teint, sur les ridules et rides, sur le relâchement cutané.</p>
+
+        </div>
+        <br>
+
+        <div class="row">
+         {% for i in List_Service %}
+            <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-right">
+              <div class="card">
+                <div class="card-img">
+                  <img src="{{ i.Service_image.url }}" alt="image">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{{ i.get_absolute_url }}">{{ i.title | upper }}</a></h5>
+                  <p class="card-text">{{ i.content | safe |capfirst  }}</p>
+                </div>
+              </div>
+            </div>         
+          {% if forloop.counter|divisibleby:2 %}
+        </div>
+        <div class="row">
+         {% endif %}
+         {% endfor %}
+         
+    </section><!-- End Services Section -->
+    
+
+{% endblock content %}

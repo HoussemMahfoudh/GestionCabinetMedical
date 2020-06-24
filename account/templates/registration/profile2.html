@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Liste Des Rendez-Vous</li>
+		</ol>
+	</div>
+    <!-- //page details -->
+{% endblock banner %}
+
+{% block content %}
+<div class="col-md-7 col-lg-8 col-xl-9">
+	<div class="card">
+		<div class="card-body">
+			
+			<!-- Profile Settings Form -->
+			<form  method="post" action="{% url 'account:profile_edit' %}">
+				<div class="row form-row">
+					<div class="col-12 col-md-12">
+						<div class="form-group">
+							<div class="change-avatar">
+								<div class="profile-img">
+									<img src="{{ user.picture.url }}" alt="User Image">
+								</div>
+								<div class="upload-img">
+									<div class="change-photo-btn">
+										<span><i class="fa fa-upload"></i> Upload Photo</span>
+										<input type="file" class="upload">
+									</div>
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% csrf_token %}
+          			{% include './bs4_form.html' with form=form %}
+
+				<div class="submit-section">
+					<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+				</div>
+			</form>
+			<!-- /Profile Settings Form -->
+			
+		</div>
+	</div>
+</div>
+{% endblock content %}

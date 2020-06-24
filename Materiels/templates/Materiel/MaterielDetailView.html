@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">{{ materiel.title}}</li>
+		</ol>
+	</div>
+	<!-- //page details -->
+{% endblock banner %}
+
+{% block content %}
+
+			<!-- Page Content -->
+			<div class="content" style="transform: none; min-height: 194.25px;">
+				<div class="container" style="transform: none;">
+				
+					<div class="row" style="transform: none;">
+						<div class="col-lg-8 col-md-12">
+							<div class="blog-view">
+								<div class="blog blog-single-post">
+									<div class="blog-image">
+										<a href="javascript:void(0);"><img alt="" src="{{ materiel.image.url }}" class="img-fluid"></a>
+									</div>
+									<h3 class="blog-title">{{materiel.title}}</h3>
+									<div class="blog-info clearfix">
+										<div class="post-left">
+											<ul>
+												<li><i class="far fa-calendar"></i>{{materiel.date_ajout.date}}</li>
+												<li><i class="far fa-comments"></i>{{materiel.Materiel_ref}}</li>
+												<li><i class="fa fa-tags"></i>{{materiel.categorie}}</li>
+											</ul>
+										</div>
+									</div>
+									<div class="blog-content">
+
+                                    {{ materiel.description| safe}}
+
+									</div>
+								</div>
+								
+						
+								<div class="card blog-comments clearfix">
+									<div class="card-header">
+										<h4 class="card-title">Comments</h4>
+									</div>
+									<div class="card-body pb-0">
+									<ul class="comments-list">
+										<li>
+											<div class="comment">
+												<div class="col-sm-12">
+												<p>
+												<div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true"></div>
+												</p>
+												<div class="row">
+												
+													<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-width="" data-numposts="5"></div>
+												</div>
+												</div>
+											</div>
+											
+								</div>
+								</div>
+								
+								
+								
+							</div>
+						</div>
+					
+						<!-- Blog Sidebar -->
+						<div class="col-lg-4 col-md-12 sidebar-right theiaStickySidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+
+							<!-- Search -->
+							
+							<!-- /Search -->
+
+							<!-- Latest Posts -->
+							
+							<!-- /Latest Posts -->
+
+							<!-- Categories -->
+							
+							<!-- /Categories -->
+
+							<!-- Tags -->
+							
+							<!-- /Tags -->
+							
+						<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 879.5px;"><div class="card search-widget">
+								<div class="card-body">
+									<form class="search-form" action="{% url 'Materiel:search' %}">
+										<div class="input-group">
+											<input type="text" placeholder="Chercher un matériel..." class="form-control" name="q" value="{{request.GET.q}}">
+											<div class="input-group-append">
+												<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div><div class="card post-widget">
+								<div class="card-header">
+									<h4 class="card-title">Matériel Similaires</h4>
+								</div>
+								<div class="card-body">
+									<ul class="latest-posts">
+                                    {% for materiel in materiel_related%}
+										<li>
+											<div class="post-thumb">
+												<a href="{{ materiel.get_absolute_url }}">
+													<img class="img-fluid" src="{{materiel.image.url}}" alt="">
+												</a>
+											</div>
+											<div class="post-info">
+												<h4>
+													<a href="{{ materiel.get_absolute_url }}">{{ materiel.title }}</a>
+												</h4>
+												<p>{{ materiel.Materiel_ref }}</p>
+											</div>
+										</li>
+                                    {% endfor %}
+										
+									</ul>
+								</div>
+							</div><div class="card category-widget">
+								<div class="card-header">
+									<h4 class="card-title">Materiel Categories</h4>
+								</div>
+								<div class="card-body">
+									<ul class="categories">
+                  					{% for categorie in categories%}
+										<li><a href="{{ categorie.get_absolute_url }}">{{ categorie.categorie_name }}<span>({{categorie.total}})</span></a></li>
+                  					{% endfor %}
+									</ul>
+								</div>
+							</div>
+                            <div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 390px; height: 3049px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
+						<!-- /Blog Sidebar -->
+						
+                </div>
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+   </div>
+
+{% endblock content %}

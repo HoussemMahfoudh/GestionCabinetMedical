@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+{% endblock banner %}
+
+{% block content %}
+	<!-- register -->
+<section class="logins py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="title-section mb-md-5 mb-4">
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Register Now</h3>
+			</div>
+			<div class="login px-sm-4 mx-auto mw-100 login-wrapper">
+				<form class="login-wrapper" action="#" method="post">
+						{% csrf_token %}
+						{% include './bs4_form.html' with form=form %}
+					<button type="submit" class="btn submit mt-4">Register</button>
+					<p class="text-center mt-5">
+						<a href="{% url 'index' %}">By clicking Register, I agree to your terms</a>
+					</p>
+				</form>
+			</div>
+		</div>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Materiel</li>
+    </ol>
+    <!--Search-->
+  <div>
+    <form action="{% url 'Materiel:search' %}" method="GET" >
+      <div style="text-align: right;">
+      <input class="" placeholder="Enter your search term..." type="text" id="search" name="q" value="{{request.GET.q}}">
+      <input class="" type="submit" name="submit" value="search">
+    </div>
+      
+    </form>
+  </div>
+  </div>
+  
+	<!-- //page details -->
+{% endblock banner %}
+
+{% block content %}
+<section class="blog_w3ls py-5" id="why">
+  <div class="container py-xl-5 py-lg-3">
+    <div class="title-section mb-md-5 mb-4">
+      <h6 class="w3ls-title-sub">About Us</h6>
+      <h3 class="w3ls-title text-uppercase text-bl font-weight-bold">Why Choose Us</h3>
+    </div>
+    <div class="row">
+      {% for i in list_materiel %}
+
+      <!-- blog grid-->
+      <div class="col-lg-4 col-md-6">
+        <div class="card border-0 med-blog">
+          <div class="card-header p-0">
+            <img class="card-img-bottom" 
+            src="{% if i.image %}
+                {{ i.image.url }}
+              {% endif %}" alt="image">
+          </div>
+          <div class="card-body border border-top-0">
+            <div class="mb-3">
+              <h5 class="blog-title card-title m-0">{{ i.title }}</h5>
+              <div class="blog_w3icon">
+                
+              </div>
+            </div>
+            <p>t9acher l wejh</p>
+            <a href="{{i.slug}}" class="btn blog-btn mt-4">More Details</a>
+          </div>
+        </div>
+      </div>
+        
+      
+      {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row">
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<!-- //why -->
+{% endblock content %}
+

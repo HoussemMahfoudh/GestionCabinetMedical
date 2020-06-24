@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Réserver Un Matériel</li>
+		</ol>
+	</div>
+	<!-- //page details -->
+{% endblock banner %}
+{% block content %}
+
+<!-- Page Content -->
+			<div class="content" style="transform: none; min-height: 194.25px;">
+				<div class="container" style="transform: none;">
+
+					<div class="row" style="transform: none;">
+						<div class="col-md-7 col-lg-8">
+							<div class="card">
+								<div class="card-body">
+								
+									<!-- Checkout Form -->
+									<form action="{% url 'reservation:Reservation' %}" method="POST">
+										{% csrf_token %}
+										<!-- Personal Information -->
+										<div class="info-widget">
+											<h4 class="card-title">Réserver Un Matériel</h4>
+											<div class="row">
+												
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group card-label">
+														<label>Choisir La Date Du Réservation</label>
+														{% if form.event_date.is_bound %}
+															{% if form.event_date.errors %}
+																{% render_field form.event_date|add_class:"form-control is-invalid" %}
+																{% for error in form.event_dateerrors %}
+																<div class="invalid-feedback">
+																	{{ error }}
+																</div>
+																{% endfor %}
+															{% else %}
+																{% render_field form.event_date|add_class:"form-control is-valid" %}
+															{% endif %}
+														{% else %}
+															{% render_field form.event_date|add_class:"form-control" %}
+														{% endif %}
+													</div>
+												</div>
+												
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group card-label">
+														<label>Choisir La Plage Horaire Du Réservation</label>
+														{% if form.time.is_bound %}
+															{% if form.time.errors %}
+																{% render_field form.time|add_class:"form-control is-invalid" %}
+																{% for error in form.time.errors %}
+																<div class="invalid-feedback">
+																	{{ error }}
+																</div>
+																{% endfor %}
+															{% else %}
+																{% render_field form.time|add_class:"form-control is-valid" %}
+															{% endif %}
+														{% else %}
+															{% render_field form.time|add_class:"form-control" %}
+														{% endif %}
+													</div>
+												</div>
+												
+												<div class="col-md-12 col-sm-12">
+													<div class="form-group card-label">
+														<label>Choisir Le Matériel</label>
+														{% if form.Materiel.is_bound %}
+															{% if form.Materiel.errors %}
+																{% render_field form.Materiel|add_class:"form-control is-invalid" %}
+																{% for error in form.Materiel.errors %}
+																<div class="invalid-feedback">
+																	{{ error }}
+																</div>
+																{% endfor %}
+															{% else %}
+																{% render_field form.Materiel|add_class:"form-control is-valid" %}
+															{% endif %}
+														{% else %}
+															{% render_field form.Materiel|add_class:"form-control" %}
+														{% endif %}
+													</div>
+												</div>	
+
+												{% if messages %}
+													<div class="col-md-12 col-sm-12">
+														{% for message in messages %}
+															<div class="alert alert-primary {{ message.tags }} alert-dismissible fade show" role="alert">
+																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+																</button>
+																{{ message }}
+															</div>
+															{% endfor %}
+													</div>
+												{% endif %}
+											</div>
+											{% if request.user.isanonymous %}
+											<div class="exist-customer">Vous etes inscrit? <a href="{% url 'account:login'%}">Clicquez ici pour se connecter</a></div>
+											{% endif %}
+										</div>
+										<!-- /Personal Information -->
+										<!-- Submit Section -->
+											<div class="submit-section mt-4">
+												<button type="submit" class="btn btn-primary submit-btn">Réserver Un Matériel</button>
+											</div>
+											<!-- /Submit Section -->
+										
+									</form>
+									<!-- /Checkout Form -->
+									
+								</div>
+							</div>
+							
+						</div>
+						
+						<div class="col-md-5 col-lg-4 theiaStickySidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+						
+							<!-- Booking Summary -->
+							
+							<!-- /Booking Summary -->
+							
+						<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 879.5px;"><div class="card booking-card">
+								<div class="card-header">
+									<h4 class="card-title">Résumé Du Réservation</h4>
+								</div>
+								<div class="card-body">
+								
+									<!-- Booking Doctor Info -->
+									<div class="booking-doc-info">
+										<a href="https://dreamguys.co.in/demo/doccure/template/doctor-profile.html" class="booking-doc-img">
+											<img src="{{ user.picture.url }}" alt="Photo De Profile">
+										</a>
+										<div class="booking-info">
+											<h4><a href="https://dreamguys.co.in/demo/doccure/template/doctor-profile.html">{{ user.first_name |title}} {{user.last_name |title}}</a></h4>
+											
+											<div class="clinic-details">
+												<p class="doc-location"><i class="fas fa-map-marker-alt"></i>{{ user.city }}, {{ user.address }}</p>
+											</div>
+										</div>
+									</div>
+									<!-- Booking Doctor Info -->
+									<hr>
+									<div class="booking-summary">
+										<div class="booking-item-wrap">
+											<ul class="booking-date">
+												{% if messages %}
+													{% for message in messages %}
+														{% if 'success' in message.tags %}
+															<li>Date <span id="dateEvent">{{reservation.event_date}}</span></li>
+															<li>Temps <span id="timeEvent">{{reservation.time}}</span></li>
+															<li>Matériel <span id="serviceEvent">{{reservation.Materiel}}</span></li>
+														{%endif%}
+													{% endfor %}
+												{% else %}
+													<li>Date <span id="dateEvent">Date Choisit</span></li>
+													<li>Temps <span id="timeEvent">Temps Choisit</span></li>
+													<li>Matériel <span id="materielEvent">Matériel Choisit</span></li>
+												{% endif %}
+												
+												
+											</ul>
+											
+										</div>
+									</div>
+								</div>
+							</div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 390px; height: 758px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+			<script type="text/javascript">
+					$( document ).ready(function() {
+						console.log( "ready!" );
+						$("#id_time").change(function(){
+            				$('#timeEvent').html($(this.options[this.selectedIndex]).text());
+							
+        				})
+						$("#id_Materiel").change(function(){
+            				$('#materielEvent').html($(this.options[this.selectedIndex]).text());
+							
+        				})
+					});
+			</script>
+{% endblock content %}

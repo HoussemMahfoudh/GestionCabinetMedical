@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Liste Des Rendez-Vous</li>
+		</ol>
+	</div>
+	<!-- //page details -->
+{% endblock banner %}
+{% block content %}
+
+			<!-- Page Content -->
+			<div class="content" style="transform: none; min-height: 199px;">
+				<div class="container-fluid" style="transform: none;">
+
+					<div class="row" style="transform: none;">
+						<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar dct-dashbd-lft" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+						
+							<!-- Profile Widget -->
+							
+							<!-- /Profile Widget -->
+							
+							<!-- Last Booking -->
+							
+							<!-- /Last Booking -->
+							
+						<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: relative; transform: none;"><div class="card widget-profile pat-widget-profile">
+								<div class="card-body">
+									<div class="pro-widget-content">
+										<div class="profile-info-widget">
+											<a href="#" class="booking-doc-img">
+												<img src="{{request.user.picture.url}}" alt="User Image">
+											</a>
+											<div class="profile-det-info">
+												<h3>{{request.user.first_name | title}}</h3>
+												
+												<div class="patient-details">
+													<h5><b>Patient ID :</b> {{request.user.pk}}</h5>
+													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{request.user.city | title}}, {{request.user.address | title}}</h5>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="patient-info">
+										<ul>
+											<li>Phone <span>{{request.user.phone_number}}</span></li>
+											<li>Age <span>{{request.user.date_of_birth}}</span></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 310px; height: 661px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
+
+						<div class="col-md-7 col-lg-8 col-xl-9 dct-appoinment">
+							<div class="card">
+								<div class="card-body pt-0">
+									<div class="user-tabs">
+										<ul class="nav nav-tabs nav-tabs-bottom nav-justified flex-wrap">
+											<li class="nav-item">
+												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">Reservations</a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#pres" data-toggle="tab"><span>Prescription</span></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#medical" data-toggle="tab"><span class="med-records">Medical Records</span></a>
+											</li>
+											<li class="nav-item">
+												<a class="nav-link" href="#billing" data-toggle="tab"><span>Billing</span></a>
+											</li> 
+										</ul>
+									</div>
+									<div class="tab-content">
+										
+										<!-- Appointment Tab -->
+										<div id="pat_appointments" class="tab-pane fade show active">
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>ID Reservation</th>
+                                                                    <th>Matériel</th>
+																	<th>Date</th>
+																	<th>Temps</th>
+																	<th>Status</th>
+																	<th></th>
+																</tr>
+															</thead>
+															<tbody>
+                                                            {% for reservation in reservations%}
+																<tr>
+                                                                    <td>{{reservation.pk}}</td>
+                                                                    <td>{{reservation.Materiel}}</td>
+																	<td>{{reservation.event_date}}</td>
+                                                                    <td>{{reservation.time}}</td>
+																	
+																	<td>
+																		
+																			{% if reservation.available == True %}
+																				<span class="badge badge-pill bg-success-light">Confirmé</span>
+																			{% else %}
+																				<span class="badge badge-pill bg-warning-light">Traitement En Cours</span>
+																			{% endif %}
+																		
+																		
+																		
+
+                                                                    </td>
+
+																			
+																				
+																					<td class="text-right">
+																						<div class="table-action">
+																							<a href="{{ reservation.get_absolute_url }}" class="btn btn-sm bg-success-light">
+																								<i class="fa fa-edit"></i> Modifier
+																							</a>
+																						</div>
+																					</td>
+																					<form action="{% url 'reservation:reservation-delete' reservation.pk %}" method="POST">
+																						{% csrf_token %}
+																						<td class="text-right">
+																							<div class="table-action">
+																								<button type="submit" class="btn btn-sm bg-danger-light">
+																									<i class="fa fa-trash"></i> Annuler
+																								</a>
+																							</div>
+																						</td>
+																					</form>
+																				
+
+																</tr>
+                                                                {% endfor %}
+                                                                </tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Appointment Tab -->
+                                        <!-- Prescription Tab -->
+										<div class="tab-pane fade" id="pres">
+											<div class="text-right">
+												<a href="https://dreamguys.co.in/demo/doccure/template/add-prescription.html" class="add-new-btn">Add Prescription</a>
+											</div>
+											<div class="card card-table mb-0">
+												<div class="card-body">
+													<div class="table-responsive">
+														<table class="table table-hover table-center mb-0">
+															<thead>
+																<tr>
+																	<th>Date </th>
+																	<th>Name</th>									
+																	<th>Created by </th>
+																	<th></th>
+																</tr>     
+															</thead>
+															<tbody>
+																<tr>
+																	<td>14 Nov 2019</td>
+																	<td>Prescription 1</td>
+																	<td>
+																		<h2 class="table-avatar">
+																			<a href="https://dreamguys.co.in/demo/doccure/template/doctor-profile.html" class="avatar avatar-sm mr-2">
+																				<img class="avatar-img rounded-circle" src="Patient-Profile_fichiers/doctor-thumb-01.jpg" alt="User Image">
+																			</a>
+																			<a href="https://dreamguys.co.in/demo/doccure/template/doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
+																		</h2>
+																	</td>
+																	<td class="text-right">
+																		<div class="table-action">
+																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+																				<i class="fas fa-print"></i> Print
+																			</a>
+																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+																				<i class="far fa-eye"></i> View
+																			</a>
+																		</div>
+																	</td>
+																</tr>
+                                                            </tbody>	
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /Prescription Tab -->
+
+                                    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>		
+			<!-- /Page Content -->
+			
+<script>
+	$(".delete-link").click(function(){
+		confirm_box = confirm("Are you sure?");
+		if(confirm_box == true)
+			return true;
+		else
+			return false;
+	})
+
+</script>
+
+{% endblock content %}

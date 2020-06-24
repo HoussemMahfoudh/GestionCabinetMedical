@@ -1,0 +1,11 @@
+Django~=2.2
+https://github.com/darklow/django-suit/tarball/v2
+django-ckeditor
+django-taggit
+django-widget-tweaks
+django-bootstrap-datepicker-plus
+django-bootstrap4
+django-imagekit
+rules
+django-extensions
+Pillow

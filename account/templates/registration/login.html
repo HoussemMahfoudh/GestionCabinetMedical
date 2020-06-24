@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block banner %}
+<!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Login</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">{% block breadcrumb %}Home{% endblock %}</li>
+		</ol>
+	</div>
+	<!-- //page details -->
+{% endblock banner %}
+
+{% block content  %}
+<div class="container-fluid">
+
+    <div class="row"id="login">
+        <div class="col-sm-12 col-md-6" id="login">
+            <div class="panel panel-default">
+                <div class="login">
+                    <div class="container">
+                        <h2>Login Form</h2>
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
+                            <form method="post" action="{% url 'account:login' %}">
+                                {% csrf_token %}
+                                {% for field in form.visible_fields %}
+                                    <div class="form-group">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field|add_class:"form-control" }}
+                                    {% for error in field.errors %}
+                                        <span class="help-block">{{error|add_error_class:"error-border"}}</span>
+                                    {% endfor %}
+                                    {% if messages %}
+                                        <ul class="messages">
+                                            {% for message in messages %}
+                                                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    {{ message }}
+                                                </div>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                {% endfor %}  
+                            </form>
+                            <div class="forgot">
+                                <a href="{% url 'account:password_reset' %}">Forgot Password?</a>
+                            </div>
+                            <input type="submit" value="Login" class="btn btn-success"/>
+                        </div>
+                        <h4>For New People</h4>
+                        <p><a href="{% url 'account:register'%}">Register Here</a> (Or) go back to <a href="{% url 'index' %}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
+                    </div>
+                    </div>
+	            </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

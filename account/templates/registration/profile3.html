@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block banner %}
+<!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+
+	<!-- //page details -->
+{% endblock banner %}
+
+{% block content  %}
+<div class="container emp-" id="profile">
+            <form method="post" action="{% url 'account:profil' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            <img src="{{ user.picture.url }}" alt=""/>
+                            <div class="file btn btn-lg btn-primary">
+                                Change Photo
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                        <div class="profile-work">
+                                <p>WORK LINK</p>
+                                <a href="{% url 'account:profile_edit' %}">
+                                    <span class="fas fa-user-cog mr-2"></span>
+                                    Modifier informations
+                                </a><br/>
+                                <a href="">Bootsnipp Profile</a><br/>
+                                <a href="">Bootply Profile</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{ user.first_name }} {{ user.last_name }}
+                                    </h5>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content profile-tab" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+
+                                                    <label>First Name</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{ user.first_name }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Last Name</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{ user.last_name }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{ user.email }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Phone</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{ user.phone_number }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Date of birth</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{ user.date_of_birth }}</p>
+                                                </div>
+                                            </div>
+                                </div>
+                            </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+
+
+
+
+
+                </div>
+                </div>
+
+            </form>
+</div>
+{% endblock content %}

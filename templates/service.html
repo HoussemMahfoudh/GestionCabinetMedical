@@ -1,0 +1,28 @@
+{% load static %}
+<!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2 data-aos="fade-in">Services</h2>
+          <p data-aos="fade-in">Traitements médicaux à visée esthétique</p>
+        </div>
+
+        <div class="row">
+
+         {% for service in services %}
+            <div class="col-md-6 d-flex align-items-stretch" data-aos="fade-right">
+              <div class="card">
+                <div class="card-img">
+                  <img src="{{ service.Service_image.url }}" alt="image">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="{% url 'Service:ListeService'%}">{{ service.title | upper }}</a></h5>
+                  <p class="card-text">{{ service.content | safe |capfirst  }}</p>
+                </div>
+              </div>
+            </div>         
+         {% endfor %}
+
+      </div>
+    </section><!-- End Services Section -->

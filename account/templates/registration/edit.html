@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block banner %}
+    <!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">Modifier profil</li>
+		</ol>
+	</div>
+    <!-- //page details -->
+{% endblock banner %}
+
+{% block content %}
+<!-- Page Content -->
+<div class="content" style="transform: none; min-height: 194.25px;">
+	<div class="container-fluid" style="transform: none;">
+		<div class="row" style="transform: none;">
+						<!-- Profile Sidebar -->
+			<div class="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar" style="position: relative; overflow: visible; box-sizing: border-box; min-height: 1px;">
+							
+				<div class="theiaStickySidebar" style="padding-top: 0px; padding-bottom: 1px; position: static; transform: none; top: 0px; left: 30px;"><div class="profile-sidebar">
+									<div class="widget-profile pro-widget-content">
+										<div class="profile-info-widget">
+											<a href="#" class="booking-doc-img">
+												<img src="{{ user.picture.url }}" alt="User Image">
+											</a>
+											<div class="profile-det-info">
+												<h3>{{user.first_name | title}}</h3>
+												<div class="patient-details">
+													<h5><i class="fas fa-birthday-cake"></i>{{user.date_of_birth}}</h5>
+													<h5 class="mb-0"><i class="fas fa-map-marker-alt"></i>{{user.city | title}}, {{user.address | title}}</h5>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="dashboard-widget">
+										<nav class="dashboard-menu">
+											<ul>
+												{% if user.is_patient %}
+													<li>
+														<a href="{% url 'account:profil_user' %}">
+															<i class="fas fa-columns"></i>
+															<span>Dashboard</span>
+														</a>
+													</li>
+												{% elif user.is_doctor%}
+													<li>
+														<a href="{% url 'account:profil_doctor' %}">
+															<i class="fas fa-columns"></i>
+															<span>Dashboard</span>
+														</a>
+													</li>
+												{% endif %}	
+												{% if user.is_patient %}
+													<li class="active">
+														<a href="{% url 'account:profile_edit' %}">
+															<i class="fas fa-user-cog"></i>
+															<span>Profile Settings</span>
+														</a>
+													</li>
+												{% elif user.is_doctor%}
+													<li class="active">
+														<a href="{% url 'account:profile_edit_doctor' %}">
+															<i class="fas fa-user-cog"></i>
+															<span>Profile Settings</span>
+														</a>
+													</li>
+												{% endif %}
+												<li>
+													<a href="{% url 'account:change_password' %}">
+														<i class="fas fa-lock"></i>
+														<span>Change Password</span>
+													</a>
+												</li>
+												<li>
+													<a href="{% url 'account:logout' %}">
+														<i class="fas fa-sign-out-alt"></i>
+														<span>Logout</span>
+													</a>
+												</li>
+											</ul>
+										</nav>
+									</div>
+	
+								</div><div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 340px; height: 839px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div></div></div>
+							<!-- /Profile Sidebar -->
+
+							<div class="col-md-7 col-lg-8 col-xl-9">
+								<div class="card">
+									<div class="card-body">
+										
+										<!-- Profile Settings Form -->
+										<form  method="post" action="{% url 'account:profile_edit' %}" enctype="multipart/form-data">
+											{% csrf_token %}
+
+											{% include './bs4_form.html' with form=form %}
+											
+												
+
+											<div class="submit-section">
+												<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+											</div>
+										</form>
+										<!-- /Profile Settings Form -->
+										
+									</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>		
+				<!-- /Page Content -->							
+{% endblock content %}
