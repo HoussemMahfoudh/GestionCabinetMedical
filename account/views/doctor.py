@@ -7,10 +7,11 @@ from account.models import MyUser
 from rules.contrib.views import PermissionRequiredMixin
 from appointment.models import Appointment
 from account.forms import UserForm, UserForm_doct
-from account.forms import UserForm, UserProfile
+from account.forms import UserForm, UserProfile,UserProfileDoctor
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib import messages
 from django.http import Http404
+from reservation.models import ReservationMateriel
 
 
 
@@ -50,8 +51,8 @@ class UserFormView(View):
                 if user.is_active:
                     login(request,user)
                     return redirect('index')
-                    
-            return render(request, self.template_name, {'form': form.as_p})
+                     
+        return render(request, self.template_name, {'form': form.as_p})
 
 
 class LoginView(SignUp):
@@ -80,7 +81,7 @@ class ProfileView(TemplateView):
     #permission_required = 'doctor'
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
-        context['appointments'] = Appointment.objects.filter(user =self.request.user)
+        context['reservations'] = ReservationMateriel.objects.filter(user =self.request.user)
         return context
     
     def dispatch(self, request, *args, **kwargs):
@@ -92,14 +93,14 @@ class ProfileView(TemplateView):
 class ProfileUpdate(UpdateView):
     model = MyUser
     #permission_required = 'doctor'
-    form_class = UserProfile
+    form_class = UserProfileDoctor
     template_name = 'registration/edit.html'
 
     def get_object(self, queryset=None):
         if  self.request.user.is_doctor != True:
             return redirect('account:profile_edit')
         else: 
-            return self.request.user
+            return self.request.user 
     
 
 def change_password(request):
@@ -109,7 +110,7 @@ def change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('account:profile_edit_doctor')
+            return redirect('account:profile_editDoctor')
         else:
             messages.error(request, 'Please correct the error below.')
     else:

@@ -1,6 +1,25 @@
 {% extends 'base.html' %}
 {% block banner %}
-    {% include "banner.html"  %}
+
+		<!-- banner -->
+<div class="main-banner-2">
+
+</div>
+<!-- //banner -->
+</div>
+<!-- page details -->
+<div class="breadcrumb-agile py-1">
+<ol class="breadcrumb m-0">
+	<li class="breadcrumb-item">
+		<a href="{% url 'index' %}">Home</a>
+	</li>
+	<li class="breadcrumb-item">
+		<a href="{% url 'Article:liste-article' %}">Articles</a>
+	</li>
+	<li class="breadcrumb-item active" aria-current="page">{{ article.title }}</li>
+</ol>
+<!--Search-->
+</div>
 {% endblock banner %}
 
 {% block content %}

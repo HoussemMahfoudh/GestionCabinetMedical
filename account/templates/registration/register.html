@@ -13,7 +13,7 @@
 			<li class="breadcrumb-item">
 				<a href="{% url 'index' %}">Home</a>
 			</li>
-			<li class="breadcrumb-item active" aria-current="page">{% block breadcrumb %}Home{% endblock %}</li>
+			<li class="breadcrumb-item active" aria-current="page">{% block breadcrumb %}S'Inscrire En Tant Que Patient{% endblock %}</li>
 		</ol>
 	</div>
 	<!-- //page details -->
@@ -30,28 +30,28 @@
 <section class="logins py-5">
 		<div class="container py-xl-5 py-lg-3">
 			<div class="title-section mb-md-5 mb-4">
-				<h6 class="w3ls-title-sub">Easy to Register</h6>
-				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Register Now</h3>
+				<h6 class="w3ls-title-sub">Inscription</h6>
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">S'Inscrire En Tant Que Patient</h3>
 			</div>
 			<div class="login px-sm-4 mx-auto mw-100 login-wrapper">
 				<form class="login-wrapper" action="#" method="post">
-						 {% csrf_token %}
-						{% include './bs4_form.html' with form=form %}
-						{% if messages %}
-													<div class="col-md-12 col-sm-12">
-														{% for message in messages %}
-															<div class="alert alert-primary {{ message.tags }} alert-dismissible fade show" role="alert">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-																</button>
-																{{ message }}
-															</div>
-															{% endfor %}
-													</div>
-												{% endif %}
+					{% csrf_token %}
+					{% include './bs4_form.html' with form=form %}
+					{% if messages %}
+						<div class="col-md-12 col-sm-12">
+							{% for message in messages %}
+								<div class="alert alert-primary {{ message.tags }} alert-dismissible fade show" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+									{{ message }}
+								</div>
+								{% endfor %}
+						</div>
+					{% endif %}
 					<button type="submit" class="btn submit mt-4">Register</button>
 					<p class="text-center mt-5">
-						<a href="{% url 'index' %}">By clicking Register, I agree to your terms</a>
+						By clicking Register, I agree to your terms
 					</p>
 				</form>
 			</div>

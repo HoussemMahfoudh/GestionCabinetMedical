@@ -8,8 +8,8 @@ from imagekit.processors import ResizeToFill, Transpose, SmartResize
 
 from django.forms import widgets, Widget
 
-GENDER_CHOICES = (('M', 'Male'), ('F', 'Female'))
-CITY_CHOICES = (('T', 'Tunis'), ('N', 'Nabeul'), ('A', 'Ariana'))
+GENDER_CHOICES = (('F', 'Femme'), ('H', 'Homme'))
+CITY_CHOICES = (('Tunis', 'Tunis'), ('Nabeul', 'Nabeul'), ('Ariana', 'Ariana'),('Bezerte','Bezerte'),('Autres','Autres'))
 
 
 class MyUserManager(BaseUserManager):
@@ -74,9 +74,9 @@ class MyUser(AbstractBaseUser):
     phone_number = models.DecimalField( max_digits=8,decimal_places=0)
 
     gender = models.CharField(choices=GENDER_CHOICES, max_length=128)
-    city = models.CharField(choices=CITY_CHOICES, max_length=128)
-    address = models.CharField(max_length=255)
-    specialite = models.CharField(max_length=233 , null=True)
+    city = models.CharField(choices=CITY_CHOICES, max_length=128,null=True,blank=True)
+    address = models.CharField(max_length=255,null=True,blank=True)
+    specialite = models.CharField(max_length=233 , null=True,blank=True)
     picture=models.ImageField(upload_to='upload/picture', default="user.png", max_length=255, blank=True, null=True)
     picture_thumbnail = ImageSpecField(
                                 source='picture',

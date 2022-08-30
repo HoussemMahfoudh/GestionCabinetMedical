@@ -1,0 +1,1 @@
+web: gunicorn ppemedical.wsgi:application --log-file -

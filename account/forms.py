@@ -15,7 +15,7 @@ class UserForm(forms.ModelForm):
     # first_name = forms.CharField(label="First Name",widget=forms.TextInput)
     class Meta:
         model = MyUser
-        fields = ['first_name', 'last_name', 'email', 'phone_number', 'date_of_birth', 'gender', 'city', 'address']
+        fields = ['first_name', 'last_name', 'phone_number', 'date_of_birth', 'gender','email']
         
         widgets = {
             'date_of_birth': DateInput(),
@@ -25,20 +25,54 @@ class UserForm(forms.ModelForm):
         max_length=30,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Write your name here',
+                'placeholder': 'Foulen',
             }
         )
     )
 
+    last_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Ben Foulen',
+            }
+        )
+    )
 
-
+    email = forms.CharField(
+        max_length=255,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'email@mail.com',
+            }
+        )
+    )
+    
 
     phone_number = forms.DecimalField(
         max_digits = 8,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'number with 8 digits',
+                'placeholder': 'Numéro de téléphone ou fix',
                 'pattern' : '[234579]{1}[0-9]{7}',
+            }
+        )
+    )
+
+    password1 = forms.CharField(
+        max_length=255,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Mot de passe',
+            }
+        )
+    )
+
+    password2 = forms.CharField(
+        max_length=255,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Confirmer le mot de passe',
             }
         )
     )
@@ -79,11 +113,75 @@ class UserForm_doct(forms.ModelForm):
             'date_of_birth': DateInput(),
         }
 
+    first_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Foulen',
+            }
+        )
+    )
+
+    last_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Ben Foulen',
+            }
+        )
+    )
+
+    email = forms.CharField(
+        max_length=255,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'email',
+            }
+        )
+    )
+
+    address = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Adresse de travail',
+            }
+        )
+    )
+
+
     phone_number = forms.DecimalField(
         max_digits=8,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'number with 8 digits',
+                'placeholder': 'Numéro de téléphone ou fix',
+            }
+        )
+    )
+
+    specialite = forms.CharField(
+        max_length=255,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'spécialité',
+            }
+        )
+    )
+
+    password1 = forms.CharField(
+        max_length=255,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Mot de passe',
+            }
+        )
+    )
+
+    password2 = forms.CharField(
+        max_length=255,
+        widget=forms.PasswordInput(
+            attrs={
+                'placeholder': 'Confirmer le mot de passe',
             }
         )
     )
@@ -128,6 +226,12 @@ class UserProfile(forms.ModelForm):
         model = MyUser
         fields = ['first_name', 'last_name', 'email',
                   'phone_number', 'date_of_birth', 'gender', 'city', 'address','picture']
+
+class UserProfileDoctor(forms.ModelForm):
+    class Meta:
+        model = MyUser
+        fields = ['first_name', 'last_name', 'email',
+                  'phone_number', 'date_of_birth', 'gender','specialite' ,'city', 'address','picture']
 
 
 

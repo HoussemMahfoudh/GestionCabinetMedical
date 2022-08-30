@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,re_path
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -24,8 +24,15 @@ urlpatterns =[
     path('profile_edit/', user.ProfileUpdate.as_view(
         template_name='registration/edit.html', success_url="."), name='profile_edit'),
     path('profile_edit/doctor', doctor.ProfileUpdate.as_view(
-        template_name='registration/edit.html', success_url="."), name='profile_edit_doctor'),
+        template_name='registration/edit.html', success_url="."), name='profile_editDoctor'),
     path('change-password/', user.change_password, name='change_password'),
     path('change-password/doctor', doctor.change_password, name='change_passwordDoctor'),
-    path(' ', include('django.contrib.auth.urls')),
+
+    path('password_reset/', auth_views.PasswordResetView, name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView, name='password_reset_done'),
+    re_path(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        auth_views.PasswordResetConfirmView, name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView, name='password_reset_complete'),
+
+    #path('', include('django.contrib.auth.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

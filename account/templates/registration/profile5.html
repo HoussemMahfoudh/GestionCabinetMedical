@@ -72,7 +72,7 @@
 													<span>Profile Settings</span>
 												</a>
 											{% elif user.is_doctor %}
-												<a href="{% url 'account:profile_edit_doctor' %}">
+												<a href="{% url 'account:profile_editDoctor' %}">
 													<i class="fas fa-user-cog"></i>
 													<span>Profile Settings</span>
 												</a>
@@ -99,7 +99,11 @@
 									<div class="user-tabs">
 										<ul class="nav nav-tabs nav-tabs-bottom nav-justified flex-wrap">
 											<li class="nav-item">
-												<a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
+												{% if user.is_patient %}
+												 	<a class="nav-link active" href="#pat_appointments" data-toggle="tab">Appointments</a>
+												{% else %}
+													<a class="nav-link active" href="#pat_appointments" data-toggle="tab">Réservations</a>
+												{% endif %}
 											</li>
 											<li class="nav-item">
 												<a class="nav-link" href="#pres" data-toggle="tab"><span>Prescription</span></a>
@@ -113,7 +117,7 @@
 										</ul>
 									</div>
 									<div class="tab-content">
-										
+										{% if user.is_patient %}
 										<!-- Appointment Tab -->
 										<div id="pat_appointments" class="tab-pane fade show active">
 											<div class="card card-table mb-0">
@@ -122,7 +126,6 @@
 														<table class="table table-hover table-center mb-0">
 															<thead>
 																<tr>
-																	<th>ID RDV</th>
                                                                     <th>Service</th>
 																	<th>Date</th>
 																	<th>Temps</th>
@@ -133,25 +136,36 @@
 															<tbody>
                                                             {% for appointment in appointments%}
 																<tr>
-                                                                    <td>{{appointment.pk}}</td>
                                                                     <td>{{appointment.service}}</td>
 																	<td>{{appointment.event_date}}</td>
                                                                     <td>{{appointment.time}}</td>
 																	
 																	<td>
-                                                                        {% if appointment.available == True %}
-                                                                            <span class="badge badge-pill bg-success-light">Confirmé</span>
-                                                                        {% else %}
-                                                                            <span class="badge badge-pill bg-warning-light">En traitement</span>
-                                                                        {% endif %}
-                                                                    </td>
+																		{% if appointment.available == True %}
+																			<span class="badge badge-pill bg-success-light">Confirmé</span>
+																		{% elif appointment.available == false%}
+																			<span class="badge badge-pill bg-warning-light">Traitement En Cours</span>
+																		{% else %}
+																			<span class="badge badge-pill bg-danger-light">Terminé</span>
+																		{% endif %}
+                                                                    </td>	
 																	<td class="text-right">
 																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-success-light">
-																				<i class="fas fa-edit"></i> Edit
+																			<a href="{{ appointment.get_absolute_url }}" class="btn btn-sm bg-success-light">
+																				<i class="fa fa-edit"></i> Modifier
 																			</a>
 																		</div>
 																	</td>
+																	<form action="{% url 'Appointment:appointment-delete' appointment.pk %}" method="POST">
+																		{% csrf_token %}
+																		<td class="text-right">
+																			<div class="table-action">
+																				<button type="submit" class="btn btn-sm bg-danger-light">
+																					<i class="fa fa-trash"></i> Annuler
+																				</a>
+																			</div>
+																		</td>
+																	</form>
 																</tr>
                                                                 {% endfor %}
                                                                 </tbody>
@@ -161,53 +175,66 @@
 											</div>
 										</div>
 										<!-- /Appointment Tab -->
-                                        <!-- Prescription Tab -->
-										<div class="tab-pane fade" id="pres">
-											<div class="text-right">
-												<a href="https://dreamguys.co.in/demo/doccure/template/add-prescription.html" class="add-new-btn">Add Prescription</a>
-											</div>
+										{% else %}
+										<!-- Appointment Tab -->
+										<div id="pat_appointments" class="tab-pane fade show active">
 											<div class="card card-table mb-0">
 												<div class="card-body">
 													<div class="table-responsive">
 														<table class="table table-hover table-center mb-0">
 															<thead>
 																<tr>
-																	<th>Date </th>
-																	<th>Name</th>									
-																	<th>Created by </th>
+                                                                    <th>Matériel</th>
+																	<th>Date</th>
+																	<th>Temps</th>
+																	<th>Status</th>
 																	<th></th>
-																</tr>     
+																</tr>
 															</thead>
 															<tbody>
+                                                            {% for reservation in reservations%}
 																<tr>
-																	<td>14 Nov 2019</td>
-																	<td>Prescription 1</td>
+                                                                    <td>{{reservation.Materiel.title}}</td>
+																	<td>{{reservation.event_date}}</td>
+                                                                    <td>{{reservation.time}}</td>
+																	
 																	<td>
-																		<h2 class="table-avatar">
-																			<a href="https://dreamguys.co.in/demo/doccure/template/doctor-profile.html" class="avatar avatar-sm mr-2">
-																				<img class="avatar-img rounded-circle" src="Patient-Profile_fichiers/doctor-thumb-01.jpg" alt="User Image">
-																			</a>
-																			<a href="https://dreamguys.co.in/demo/doccure/template/doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
-																		</h2>
-																	</td>
+																		{% if reservation.available == True %}
+																			<span class="badge badge-pill bg-success-light">Confirmé</span>
+																		{% elif reservation.available == false%}
+																			<span class="badge badge-pill bg-warning-light">Traitement En Cours</span>
+																		{% else %}
+																			<span class="badge badge-pill bg-danger-light">Terminé</span>
+																		{% endif %}
+                                                                    </td>	
 																	<td class="text-right">
 																		<div class="table-action">
-																			<a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
-																				<i class="fas fa-print"></i> Print
-																			</a>
-																			<a href="javascript:void(0);" class="btn btn-sm bg-info-light">
-																				<i class="far fa-eye"></i> View
+																			<a href="{% url 'reservation:reservation-delete' reservation.id %}" class="btn btn-sm bg-success-light">
+																				<i class="fa fa-edit"></i> Modifier
 																			</a>
 																		</div>
 																	</td>
+																	<form action="{% url 'reservation:reservation-delete' reservation.pk %}" method="POST">
+																		{% csrf_token %}
+																		<td class="text-right">
+																			<div class="table-action">
+																				<button type="submit" class="btn btn-sm bg-danger-light">
+																					<i class="fa fa-trash"></i> Annuler
+																				</a>
+																			</div>
+																		</td>
+																	</form>
 																</tr>
-                                                            </tbody>	
+                                                                {% endfor %}
+                                                                </tbody>
 														</table>
 													</div>
 												</div>
 											</div>
 										</div>
-										<!-- /Prescription Tab -->
+										<!-- /Appointment Tab -->
+										{%endif%}
+						
 
                                     </div>
 								</div>

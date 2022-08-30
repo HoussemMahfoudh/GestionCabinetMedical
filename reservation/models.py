@@ -52,4 +52,4 @@ class ReservationMateriel(models.Model):
     
 
     def get_absolute_url(self):
-        return reverse('reservation:reservation-update', kwargs={'pk': self.id})
+        return reverse('reservation:reservation-update', kwargs={'pk': self.pk})

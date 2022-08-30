@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Be Clinic Medical Category Bootstrap Responsive Website Template | Home :: W3layouts</title>
+	<title>Laser Medical Gammarth</title>
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8" />
@@ -21,9 +21,30 @@
 		function hideURLbar() {
 			window.scrollTo(0, 1);
 		}
+
+		if ($(window).width() > 992) {
+		$(window).scroll(function(){  
+			if ($(this).scrollTop() > 200) {
+				$('#navbar_top').addClass("fixed-top");
+				$('#navbar_top').addClass("bg-dark");
+				$('#navbar_top').addClass("pl-5");
+				$('#navbar_top').addClass("pr-5");
+				// add padding top to show content behind navbar
+				$('body').css('padding-top', $('.navbar').outerHeight() + 'px');
+			}else{
+				$('#navbar_top').removeClass("fixed-top");
+				$('#navbar_top').removeClass("bg-dark");
+				$('#navbar_top').addClass("pl-5");
+				$('#navbar_top').addClass("pr-5");
+				// remove padding top from body
+				$('body').css('padding-top', '0');
+			}   
+		});
+		}
 	</script>
 	<!--// Meta tag Keywords -->
-
+	{% block css %}{% endblock css %}
+	{% block extra_js %}{% endblock extra_js %}
 	<!-- Custom-Files -->
 	<script src="https://kit.fontawesome.com/cbeb7457c0.js" crossorigin="anonymous"></script>
 	<!-- Bootstrap-Core-CSS -->
@@ -33,7 +54,7 @@
 	<link rel="stylesheet" href="{% static 'css/calendar.css' %}" type="text/css" media="all" />
 
 	<link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css" media="all" />
-	<link rel="stylesheet" href="{% static 'css/style-starter.css' %}%" type="text/css" media="all">
+	<!--<link rel="stylesheet" href="{% static 'css/style-starter.css' %}" type="text/css" media="all">-->
 	<link rel="stylesheet" href="{% static 'css/appointment.css' %}" type="text/css" media="all" />
 	<!-- Style-CSS -->
 	<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
@@ -68,22 +89,29 @@
 			<div class="top-bar py-3">
 				<div class="container">
 					<div class="row">
-						<div class="col-xl-5 col-lg-6 col-md-8 top-social-agile text-lg-left text-center">
+						<div class="col-md top-social-agile text-lg-left text-center">
 							<div class="row">
-								<div class="col-4 header-top_w3layouts">
+								<div class="col-md header-top_w3layouts">
 									<p class="text-bl">
-										<span class="fa fa-map-marker mr-2"></span>58, Gammarth
+										<span class="fa fa-map-marker mr-2"></span>56 Avn de l’environnement<br> Gammarth 1057 La Marsa
 									</p>
 								</div>
-								<div class="col-4 header-top_w3layouts">
+								<div class="col-sm header-top_w3layouts">
 									<p class="text-bl">
-										<span class="fa fa-phone mr-2"></span>+1 000263676
+										<span class="fa fa-phone mr-2"></span>(+216) 71 919 211<br>
+										<span class="fa fa-phone mr-2"></span>(+216) 97 912 770
 									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xl-7 col-lg-6 col-md-4 top-social-agile text-md-right text-center mt-md-0 mt-2">
+							<div class="row">
+								<div class="offset-xl-6 offset-lg-4">
 								</div>
 								<!-- social icons -->
 								<ul class="col-4 top-right-info">
 									<li>
-										<a href="#">
+										<a href="https://www.facebook.com/Laser-M%C3%A9dical-Gammarth-108944027216526/">
 											<span class="fa fa-facebook-f"></span>
 										</a>
 									</li>
@@ -106,24 +134,6 @@
 								<!-- //social icons -->
 							</div>
 						</div>
-						<div class="col-xl-7 col-lg-6 col-md-4 top-social-agile text-md-right text-center mt-md-0 mt-2">
-							<div class="row">
-								<div class="offset-xl-6 offset-lg-4">
-								</div>
-								<div class="col-xl-3 col-lg-4 col-6 top-w3layouts p-md-0 text-right">
-									<!-- login -->
-									<a href="{% url 'account:login' %}" class="login-button-2 text-uppercase text-bl">
-										<span class="fa fa-sign-in mr-2"></span>Se connecter</a>
-									<!-- //login -->
-								</div>
-								<div class="col-xl-3 col-lg-4 col-6 header-w3layouts text-md-right text-left">
-									<!-- register -->
-									<a href="{% url 'account:register' %}" class="login-button-2 text-uppercase text-bl">
-										<span class="fa fa-pencil-square-o mr-2"></span>S'inscrire</a>
-									<!-- //register -->
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -131,14 +141,15 @@
 		<!-- //top header -->
 
 		<!-- second header -->
-		<div class="main-top">
+		<div class="main-top" >
 			<div class="container">
-				<div class="header d-md-flex justify-content-between align-items-center py-3">
+				<div id="navbar_top" class="header d-md-flex justify-content-between align-items-center py-3">
+
 					<!-- logo -->
 					<div id="logo">
 						<h1>
 							<a href="{% url 'index' %}">
-								<span class="fa fa-user-md mr-2"></span>
+								<img src="{% static 'images/logo.png' %}" width="64" alt="" class="d-inline-block align-middle mr-2">
 								<span class="logo-sp">Laser Médical</span> Gammarth
 							</a>
 						</h1>
@@ -150,36 +161,44 @@
 							<label for="drop" class="toggle">Menu</label>
 							<input type="checkbox" id="drop" />
 							<ul class="menu">
-							
-									<li>
-										<a href="{% url 'Article:liste-article' %}">Articles</a>
-									</li>
-								<li class="mx-lg-4 mx-md-3 my-md-0 my-2">><a href="{% url 'Materiel:ListeMateriels' %}">Matériels</a></li>
+								
+								<li><a href="{% url 'Article:liste-article' %}">Articles</a></li>
+								<li class="mx-lg-4 mx-md-3 my-md-0 my-2"><a href="{% url 'Materiel:ListeMateriels' %}">Matériels</a></li>
 								<li><a href="{% url 'Service:ListeService' %}">Services</a></li>
-								<li class="mx-lg-4 mx-md-3 my-md-0 my-2">
-									<!-- First Tier Drop Down -->
-									<label for="drop-2" class="toggle toogle-2">Account <span class="fa fa-angle-down" aria-hidden="true"></span>
-									</label>
-									<a href="#">Account <span class="fa fa-angle-down" aria-hidden="true"></span></a>
-									<input type="checkbox" id="drop-2" />
-									<ul>
-										{% if user.is_anonymous %}
-											<li><a href="{% url 'account:register' %}" class="drop-text">Register patient</a></li>
-											<li><a href="{% url 'account:register_doctor' %}" class="drop-text">Register doctor</a></li>
-										{% endif %}
-										{% if user.is_patient %}
-											<li><a href="{% url 'account:login' %}" class="drop-text">Login</a></li>
-											<li><a href="{% url 'account:logout' %}" class="drop-text">Logout</a></li>
-											<li><a href="{% url 'account:profil_user' %}" class="drop-text">Profil</a></li>
-										{% endif %}
-										{% if user.is_doctor %}
-											<li><a href="{% url 'account:logout_doctor' %}" class="drop-text">Logout doctor</a></li>
-											<li><a href="{% url 'account:login_doctor' %}" class="drop-text">Login doctor</a></li>
-											<li><a href="{% url 'account:profil_doctor' %}" class="drop-text">profil doctor</a></li>
-										{% endif %}
-									</ul>
-								</li>
-								<li><a href="contact.html">Contactez Nous</a></li>
+									<li class="mx-lg-4 mx-md-3 my-md-0 my-2 dropdown show">
+										<!-- First Tier Drop Down -->
+										<a href="#" class="active dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Compte </span></a>
+										<ul class="dropdown-menu bg-dark">
+											{% if user.is_anonymous %}
+												<li><a href="{% url 'account:register' %}" class="drop-text">S'Inscrire En Tant Que Patient</a></li>
+												<li><a href="{% url 'account:register_doctor' %}" class="drop-text">S'Inscrire En Tant Que Docteur</a></li>
+												<div class="dropdown-divider"></div>
+												<li><a href="{% url 'account:login' %}">Se Connecter</a></li>
+											{% endif %}
+											{% if user.is_patient %}
+												<li><a href="{% url 'account:profil_user' %}" class="drop-text">Profil</a></li>
+												<li><a href="{% url 'Appointment:appointment-list' %}" class="drop-text">Hitorique RDV</a></li>
+												<div class="dropdown-divider"></div>
+												<li><a href="{% url 'account:logout' %}" class="drop-text">Se Déconnecter</a></li>
+											{% endif %}
+											{% if user.is_doctor %}
+												<li><a href="{% url 'account:profil_doctor' %}" class="drop-text">Profil</a></li>
+												<li><a href="{% url 'reservation:Reservation-list' %}" class="drop-text">Hitorique Réservations</a></li>
+												<div class="dropdown-divider"></div>
+												<li><a href="{% url 'account:logout_doctor' %}" class="drop-text">Se Déconnecter</a></li>
+											{% endif %}
+										</ul>
+									</li>
+									{% if user.is_patient or user.is_anonymous %}
+										<li><a href="{% url 'Appointment:appointment' %}">Prendre RDV</a></li>
+									{% endif %}
+									{% if user.is_doctor and not user.is_admin %}
+										<li><a href="{% url 'reservation:Reservation' %}">RSV Matériels</a></li>
+									{% endif %}
+									{% if user.is_admin %}
+										<li><a href="{% url 'admin:index' %}">Dashboard</a></li>
+									{% endif %}
+									
 							</ul>
 						</nav>
 					</div>
@@ -195,7 +214,8 @@
 	<!-- //main -->
 
 
-
+<br>
+<br>
 {% block content %}
 
 {% endblock content %}
@@ -212,19 +232,16 @@
 					<div class="logo2">
 						<h2>
 							<a href="index.html">
-								<span class="fa fa-user-md mr-2"></span>
-								<span class="logo-sp">Be</span> Clinic
+								<img src="{% static 'images/logo.png' %}" width="64" alt="" class="d-inline-block align-middle mr-2">
+								<span class="logo-sp">Laser Medical</span> Gammarth
 							</a>
 						</h2>
 					</div>
 					<!-- //logo -->
-					<p class="mt-4 text-li">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-						laudantium, totam rem
-						aperiam,
-						eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+					<p class="mt-4 text-li">Centre de médecine esthétique.</p>
 					<ul class="list-unstyled list-styles mt-lg-5 mt-4">
 						<li>
-							<p class="text-li"><span class="fa fa-location-arrow mr-2"></span>Morris Park, New York</p>
+							<p class="text-li"><span class="fa fa-location-arrow mr-2"></span>56 Avenue de l’environnement Gammarth 1057 La Marsa</p>
 						</li>
 						<li class="my-3">
 							<p class="text-li"><span class="fa fa-phone mr-2"></span>1234567890</p>
@@ -268,14 +285,14 @@
 		<div class="container py-3">
 			<div class="row">
 				<div class="col-lg-7 w3ls_footer_grid1_left text-lg-left text-center">
-					<p>&copy; 2019 Be Clinic. All rights reserved | Design by
-						<a href="http://w3layouts.com/">W3layouts</a>
+					<p>&copy; 2020 Laser Medical Gammarth. All rights reserved | Design by
+						<a href="https://www.facebook.com/Mahfoudh.Houssem">HMY</a>
 					</p>
 				</div>
 				<div class="col-lg-5 w3ls_footer_grid_left1_pos text-lg-right text-center mt-lg-0 mt-2">
 					<ul>
 						<li>
-							<a href="#" class="facebook">
+							<a href="https://www.facebook.com/Laser-M%C3%A9dical-Gammarth-108944027216526/" class="facebook">
 								<span class="fa fa-facebook-f mr-2"></span>Facebook</a>
 						</li>
 						<li class="mx-3">

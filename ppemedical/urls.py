@@ -18,13 +18,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from ppemedical import views
-
 app_name = 'Home'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls,name='dashboard'),
     path('materiels/', include('Materiels.urls')),
     path('articles/', include('Article.urls')),
+    path('account/', include('django.contrib.auth.urls')),
     path('account/', include('account.urls')),
     path('appointment/', include('appointment.urls')),
     path('ckeditor/',include('ckeditor_uploader.urls')),

@@ -36,7 +36,18 @@
 										<div class="info-widget">
 											<h4 class="card-title">Prendre Un Rendez-Vous</h4>
 											<div class="row">
-												
+												{% if messages %}
+													<div class="col-md-12 col-sm-12">
+														{% for message in messages %}
+															<div class="alert alert-primary {{ message.tags }} alert-dismissible fade show" role="alert">
+																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+																</button>
+																{{ message }}
+															</div>
+															{% endfor %}
+													</div>
+												{% endif %}
 												<div class="col-md-12 col-sm-12">
 													<div class="form-group card-label">
 														<label>Choisir La Date Du Rendez-Vous</label>
@@ -96,19 +107,6 @@
 														{% endif %}
 													</div>
 												</div>	
-
-												{% if messages %}
-													<div class="col-md-12 col-sm-12">
-														{% for message in messages %}
-															<div class="alert alert-primary {{ message.tags }} alert-dismissible fade show" role="alert">
-																<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-																<span aria-hidden="true">&times;</span>
-																</button>
-																{{ message }}
-															</div>
-															{% endfor %}
-													</div>
-												{% endif %}
 											</div>
 											{% if request.user.isanonymous %}
 											<div class="exist-customer">Vous etes inscrit? <a href="{% url 'account:login'%}">Clicquez ici pour se connecter</a></div>
@@ -142,6 +140,7 @@
 								<div class="card-body">
 								
 									<!-- Booking Doctor Info -->
+									{% if user.is_authenticated %}
 									<div class="booking-doc-info">
 										<a href="https://dreamguys.co.in/demo/doccure/template/doctor-profile.html" class="booking-doc-img">
 											<img src="{{ user.picture.url }}" alt="Photo De Profile">
@@ -154,6 +153,7 @@
 											</div>
 										</div>
 									</div>
+									{% endif %}
 									<!-- Booking Doctor Info -->
 									<hr>
 									<div class="booking-summary">

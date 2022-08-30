@@ -67,9 +67,9 @@
 															<span>Profile Settings</span>
 														</a>
 													</li>
-												{% elif user.is_doctor%}
+												{% elif user.is_doctor %}
 													<li class="active">
-														<a href="{% url 'account:profile_edit_doctor' %}">
+														<a href="{% url 'account:profile_editDoctor' %}">
 															<i class="fas fa-user-cog"></i>
 															<span>Profile Settings</span>
 														</a>
@@ -97,20 +97,34 @@
 							<div class="col-md-7 col-lg-8 col-xl-9">
 								<div class="card">
 									<div class="card-body">
-										
-										<!-- Profile Settings Form -->
-										<form  method="post" action="{% url 'account:profile_edit' %}" enctype="multipart/form-data">
-											{% csrf_token %}
+										{% if user.is_patient %}
+											<!-- Profile Settings Form -->
+											<form  method="post" action="{% url 'account:profile_edit' %}" enctype="multipart/form-data">
+												{% csrf_token %}
 
-											{% include './bs4_form.html' with form=form %}
-											
+												{% include './bs4_form.html' with form=form %}
 												
+													
 
-											<div class="submit-section">
-												<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
-											</div>
-										</form>
-										<!-- /Profile Settings Form -->
+												<div class="submit-section">
+													<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+												</div>
+											</form>
+											<!-- /Profile Settings Form -->
+										{% elif user.is_doctor %}
+											<form  method="post" action="{% url 'account:profile_editDoctor' %}" enctype="multipart/form-data">
+												{% csrf_token %}
+
+												{% include './bs4_form.html' with form=form %}
+												
+													
+
+												<div class="submit-section">
+													<button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
+												</div>
+											</form>
+											<!-- /Profile Settings Form -->
+										{% endif %}
 										
 									</div>
 				</div>

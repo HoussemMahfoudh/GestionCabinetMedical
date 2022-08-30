@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 
 {% block banner %}
+<!-- banner -->
+		<div class="main-banner-2">
+
+		</div>
+		<!-- //banner -->
+	</div>
+		<!-- page details -->
+	<div class="breadcrumb-agile py-1">
+		<ol class="breadcrumb m-0">
+			<li class="breadcrumb-item">
+				<a href="{% url 'index' %}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">{% block breadcrumb %}S'Inscrire En Tant Que Docteur{% endblock %}</li>
+		</ol>
+	</div>
+	<!-- //page details -->
 {% endblock banner %}
 
 {% block content %}
@@ -8,7 +24,8 @@
 <section class="logins py-5">
 		<div class="container py-xl-5 py-lg-3">
 			<div class="title-section mb-md-5 mb-4">
-				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Register Now</h3>
+				<h6 class="w3ls-title-sub">Inscription</h6>
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">S'Inscrire En Tant Que Docteur</h3>
 			</div>
 			<div class="login px-sm-4 mx-auto mw-100 login-wrapper">
 				<form class="login-wrapper" action="#" method="post">
@@ -16,7 +33,7 @@
 						{% include './bs4_form.html' with form=form %}
 					<button type="submit" class="btn submit mt-4">Register</button>
 					<p class="text-center mt-5">
-						<a href="{% url 'index' %}">By clicking Register, I agree to your terms</a>
+						By clicking Register, I agree to your terms
 					</p>
 				</form>
 			</div>

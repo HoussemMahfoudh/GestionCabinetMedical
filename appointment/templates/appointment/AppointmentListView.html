@@ -91,7 +91,6 @@
 														<table class="table table-hover table-center mb-0">
 															<thead>
 																<tr>
-																	<th>ID RDV</th>
                                                                     <th>Service</th>
 																	<th>Date</th>
 																	<th>Temps</th>
@@ -102,7 +101,6 @@
 															<tbody>
                                                             {% for appointment in appointments%}
 																<tr>
-                                                                    <td>{{appointment.pk}}</td>
                                                                     <td>{{appointment.service}}</td>
 																	<td>{{appointment.event_date}}</td>
                                                                     <td>{{appointment.time}}</td>
@@ -115,29 +113,24 @@
 																		{% else %}
 																			<span class="badge badge-pill bg-danger-light">Terminé</span>
 																		{% endif %}
-                                                                    </td>
-
-																			
-																				
-																					<td class="text-right">
-																						<div class="table-action">
-																							<a href="{{ appointment.get_absolute_url }}" class="btn btn-sm bg-success-light">
-																								<i class="fa fa-edit"></i> Modifier
-																							</a>
-																						</div>
-																					</td>
-																					<form action="{% url 'Appointment:appointment-delete' appointment.pk %}" method="POST">
-																						{% csrf_token %}
-																						<td class="text-right">
-																							<div class="table-action">
-																								<button type="submit" class="btn btn-sm bg-danger-light">
-																									<i class="fa fa-trash"></i> Annuler
-																								</a>
-																							</div>
-																						</td>
-																					</form>
-																				
-
+                                                                    </td>	
+																	<td class="text-right">
+																		<div class="table-action">
+																			<a href="{{ appointment.get_absolute_url }}" class="btn btn-sm bg-success-light">
+																				<i class="fa fa-edit"></i> Modifier
+																			</a>
+																		</div>
+																	</td>
+																	<form action="{% url 'Appointment:appointment-delete' appointment.pk %}" method="POST">
+																		{% csrf_token %}
+																		<td class="text-right">
+																			<div class="table-action">
+																				<button type="submit" class="btn btn-sm bg-danger-light">
+																					<i class="fa fa-trash"></i> Annuler
+																				</a>
+																			</div>
+																		</td>
+																	</form>
 																</tr>
                                                                 {% endfor %}
                                                                 </tbody>

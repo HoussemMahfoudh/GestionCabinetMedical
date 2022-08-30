@@ -45,7 +45,7 @@ class UserFormView(View):
                 last_name = form.cleaned_data['last_name']
                 date_of_birth = form.cleaned_data['date_of_birth']
                 phone_number = form.cleaned_data['phone_number']
-                address = form.cleaned_data['address']
+                #address = form.cleaned_data['address']
                 password1 = form.cleaned_data['password1']
                 user.is_patient = True
                 user.set_password(password1)
@@ -59,7 +59,7 @@ class UserFormView(View):
                     login(request,user)
                     return redirect('index')
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'form': form.as_p})
 
 
 class LoginView(SignUp):
@@ -106,11 +106,10 @@ class ProfileUpdate(UpdateView):
 
     def get_object(self, queryset=None):
         if  self.request.user.is_patient != True:
-            return redirect('account:profile_edit_doctor')
+            
+            return redirect('account:profile_editDoctor')
         else:
             return self.request.user
-
-    
 
 
 def change_password(request):

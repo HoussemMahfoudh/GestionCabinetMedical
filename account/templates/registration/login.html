@@ -24,56 +24,59 @@
 {% block content  %}
 <div class="container-fluid">
 
-    <div class="row"id="login">
-        <div class="col-sm-12 col-md-6" id="login">
-            <div class="panel panel-default">
-                <div class="login">
-                    <div class="container">
-                        <h2>Login Form</h2>
-                        {% if form.non_field_errors %}
-                            <div class="alert alert-danger" role="alert">
-                                {% for error in form.non_field_errors %}
-                                    {{ error }}
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-                        <div class="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
-                            <form method="post" action="{% url 'account:login' %}">
-                                {% csrf_token %}
-                                {% for field in form.visible_fields %}
-                                    <div class="form-group">
-                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {{ field|add_class:"form-control" }}
-                                    {% for error in field.errors %}
-                                        <span class="help-block">{{error|add_error_class:"error-border"}}</span>
-                                    {% endfor %}
-                                    {% if messages %}
-                                        <ul class="messages">
-                                            {% for message in messages %}
-                                                <div class="alert {{ message.tags }} alert-dismissible" role="alert">
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    {{ message }}
-                                                </div>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                {% endfor %}  
-                            </form>
-                            <div class="forgot">
-                                <a href="{% url 'account:password_reset' %}">Forgot Password?</a>
-                            </div>
-                            <input type="submit" value="Login" class="btn btn-success"/>
-                        </div>
-                        <h4>For New People</h4>
-                        <p><a href="{% url 'account:register'%}">Register Here</a> (Or) go back to <a href="{% url 'index' %}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></p>
-                    </div>
-                    </div>
-	            </div>
-            </div>
-        </div>
-    </div>
+	<!-- login -->
+	<section class="logins py-5">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="title-section mb-md-5 mb-4">
+				<h6 class="w3ls-title-sub">Easy to Login</h6>
+				<h3 class="w3ls-title text-uppercase text-dark font-weight-bold">Login Now</h3>
+			</div>
+				{% if form.non_field_errors %}
+					<div class="alert alert-danger" role="alert">
+						{% for error in form.non_field_errors %}
+							{{ error }}
+						{% endfor %}
+					</div>
+				{% endif %}
+				<div class="login px-sm-4 mx-auto mw-100 login-wrapper">
+					<form class="login-wrapper" method="post" action="{% url 'account:login' %}">
+						{% csrf_token %}
+						{% for field in form.visible_fields %}
+							<div class="form-group">
+								<label for="{{ field.id_for_label }}">{{ field.label }}</label>
+								{{ field|add_class:"form-control" }}
+								{% for error in field.errors %}
+									<span class="help-block">{{error|add_error_class:"error-border"}}</span>
+								{% endfor %}
+								{% if messages %}
+									<ul class="messages">
+										{% for message in messages %}
+											<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+												</button>
+												{{ message }}
+											</div>
+										{% endfor %}
+									</ul>
+								{% endif %}
+							</div>	
+						{% endfor %}
+						
+						<button type="submit" class="btn submit mt-4">Login</button>
+						<p class="text-center mt-5">
+							<a href="{% url 'account:password_reset' %}">Forgot Password?</a>
+						</p>
+						<h4>For New People</h4>
+						<p>
+							<a href="{% url 'account:register'%}">Register Here</a> (Or) go back to <a href="{% url 'index' %}">Home<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+						</p>
+					</form>
+				</div>			
+		</div>
+	</div>
+</section>
+
 
 </div>
 
